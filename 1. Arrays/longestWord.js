@@ -3,7 +3,7 @@ function containsPunctuation(input) {
   return punctuationRegex.test(input);
 }
 
-function LongestWord(sen) {
+function longestWord(sen) {
   const arrWords = sen.split(" ");
 
   let strLonger = "";
@@ -21,4 +21,4 @@ function LongestWord(sen) {
   return strLonger;
 }
 
-console.log(LongestWord("fun&!! time"));
+console.log(longestWord("fun&!! time"));
