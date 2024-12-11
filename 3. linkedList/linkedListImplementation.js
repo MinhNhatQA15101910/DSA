@@ -70,12 +70,55 @@ class LinkedList {
     }
     console.log(array);
   }
+
+  remove(index) {
+    if (index < 0 || index >= this.length) return undefined;
+
+    if (index === 0) {
+      let currHead = this.head;
+      this.head = currHead.next;
+
+      currHead.next = null;
+      currHead = null;
+    } else if (index === this.length - 1) {
+      const leader = this._traverseToIndex(index - 1);
+
+      this.tail = leader;
+      leader.next = null;
+    } else {
+      const leader = this._traverseToIndex(index - 1);
+      let unwantedNode = leader.next;
+
+      leader.next = unwantedNode.next;
+      unwantedNode.next = null;
+      unwantedNode = null;
+    }
+
+    this.length--;
+    return this;
+  }
 }
 
 const myLinkedList = new LinkedList(10);
+myLinkedList.printList();
+
 myLinkedList.append(5);
+myLinkedList.printList();
+
 myLinkedList.append(16);
+myLinkedList.printList();
+
 myLinkedList.prepend(1);
+myLinkedList.printList();
+
 myLinkedList.insert(2, 99);
+myLinkedList.printList();
+
 myLinkedList.insert(20, 88);
+myLinkedList.printList();
+
+myLinkedList.remove(1);
+myLinkedList.printList();
+
+myLinkedList.remove(1);
 myLinkedList.printList();
