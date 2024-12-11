@@ -12,11 +12,44 @@ class LinkedList {
     this.length = 1;
   }
 
+  _traverseToIndex(index) {
+    if (index < 0 || index >= this.length) return null;
+
+    let counter = 0;
+    let currNode = this.head;
+    while (counter < index) {
+      currNode = currNode.next;
+      counter++;
+    }
+
+    return currNode;
+  }
+
   append(value) {
     const newNode = new Node(value);
     this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
+    return this;
+  }
+
+  insert(index, value) {
+    if (index <= 0) {
+      return this.prepend(value);
+    }
+
+    if (index >= this.length) {
+      return this.append(value);
+    }
+
+    const newNode = new Node(value);
+    const leader = this._traverseToIndex(index - 1);
+    const holdingPointer = leader.next;
+
+    leader.next = newNode;
+    newNode.next = holdingPointer;
+    this.length++;
+
     return this;
   }
 
@@ -27,10 +60,22 @@ class LinkedList {
     this.length++;
     return this;
   }
+
+  printList() {
+    const array = [];
+    let currNode = this.head;
+    while (currNode !== null) {
+      array.push(currNode.value);
+      currNode = currNode.next;
+    }
+    console.log(array);
+  }
 }
 
 const myLinkedList = new LinkedList(10);
 myLinkedList.append(5);
 myLinkedList.append(16);
 myLinkedList.prepend(1);
-console.log(myLinkedList);
+myLinkedList.insert(2, 99);
+myLinkedList.insert(20, 88);
+myLinkedList.printList();
